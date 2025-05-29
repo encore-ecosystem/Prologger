@@ -8,12 +8,15 @@ class FileLogger(Logger):
         super().__init__(importance)
         logging_path.mkdir(parents=True, exist_ok=True)
         self._file_path = logging_path / datetime.now().strftime("%Y-%m-%d %H-%M-%S.log")
-        self._file_path.touch()
+        self._writer = self._file_path.open("w")
 
     def _print(self, message: str, extras: str, importance: int):
         if importance >= self._importance_threshold:
             with open(self._file_path, "a") as f:
                 f.write(f"[{datetime.now().strftime("%H:%M:%S %Y/%m/%d")}][{extras}] : {message}\n")
+
+    def __del__(self):
+        self._writer.close()
 
 
 __all__ = [

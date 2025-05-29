@@ -1,3 +1,7 @@
-from .console import *
-from .file import *
-from .union import *
+from .file import FileLogger
+from .union import UnionLogger
+
+__all__ = [
+    "FileLogger",
+    "UnionLogger",
+]

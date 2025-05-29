@@ -1,7 +1,9 @@
-from abc import ABC, abstractmethod
+from datetime import datetime
+import sys
 
+class Logger:
+    _writer = sys.stdout
 
-class Logger(ABC):
     def __init__(self, importance_threshold: int = 0):
         self._importance_threshold = importance_threshold
 
@@ -20,9 +22,9 @@ class Logger(ABC):
     def debug(self, message: str, importance: int = 0):
         self._print(message, "DEBUG", importance)
 
-    @abstractmethod
     def _print(self, message: str, extras: str, importance: int):
-        raise NotImplementedError()
+        text = f"[{datetime.now().strftime("%H:%M:%S %Y/%m/%d")}][{extras}] : {message}\n"
+        self._writer.write(text)
 
 
 __all__ = [

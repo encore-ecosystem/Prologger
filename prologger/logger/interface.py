@@ -1,4 +1,5 @@
 from datetime import datetime
+from contextlib import contextmanager
 import sys
 
 class Logger:
@@ -25,6 +26,15 @@ class Logger:
     def _print(self, message: str, extras: str, importance: int):
         text = f"[{datetime.now().strftime("%H:%M:%S %Y/%m/%d")}][{extras}] : {message}\n"
         self._writer.write(text)
+
+    @contextmanager
+    def change_writer(self, writer):
+        old_writer = self._writer
+        self._writer = writer
+        try:
+            yield None
+        finally:
+            self._writer = old_writer
 
 
 __all__ = [

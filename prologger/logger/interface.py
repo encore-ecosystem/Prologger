@@ -24,7 +24,7 @@ class Logger:
         self._print(message, "DEBUG", importance)
 
     def _print(self, message: str, extras: str, importance: int):
-        text = f"[{datetime.now().strftime("%H:%M:%S %Y/%m/%d")}][{extras}] : {message}\n"
+        text = f"[{datetime.now().strftime("%H:%M:%S %Y/%m/%d")}][{extras}] : {message}"
         self._writer.write(text)
 
     @contextmanager
